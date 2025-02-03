@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Play</title>
+    <style>
+        * {
+            font-family: Arial;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a:hover, a:focus, a:active {
+            color: inherit;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reproduciendo...</h1>
+
+    <p><b>Título: </b>{{ cancion.titulo }}</p>
+    <p><b>Artista: </b>{{ cancion.artista }}</p>
+    <p><b>Duración: </b>{{ cancion.duracion }}</p>
+
+    <iframe width="560" height="315" src="{{ cancion.link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    <p> {{myJson}} </p>
+</body>
+</html>
