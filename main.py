@@ -16,18 +16,10 @@ class Cancion(db.Model):
     def __repr__(self):
         return f'<Cancion {self.titulo}>'
     
-@app.route('/canciones')
+@app.route('/')
 def get_canciones():
     canciones = Cancion.query.all()
     return render_template('canciones.html', canciones = canciones)
-
-@app.route('/canciones/<int:cancion_id>')
-def get_cancion_by_id(cancion_id):
-    cancion = Cancion.query.get(cancion_id)
-    if cancion:
-        return jsonify({"id": cancion.id, "titulo": cancion.titulo, "artista": cancion.artista, "duracion": cancion.duracion, "link": cancion.link})
-    else:
-        return jsonify({"error": "Canción no encontrada."}), 404
 
 @app.route('/canciones/add', methods=['GET', 'POST'])
 def add_cancion():
@@ -44,6 +36,11 @@ def add_cancion():
         return f"Canción {titulo} añadida correctamente."
     
     return render_template('add.html', cancion=None)
+
+@app.route('/canciones/get')
+def get_cancion_by_id():
+
+    return render_template('get.html')
     
 @app.route('/canciones/delete/<int:cancion_id>', methods=['POST'])
 def delete_cancion(cancion_id):
@@ -73,12 +70,13 @@ def edit_cancion(cancion_id):
 
 @app.route('/play/<int:cancion_id>', methods=['GET'])
 def play_cancion(cancion_id):
+    if cancion_id==0:
+        cancion_id = request.args.get('cancion_id')
+    canciones = Cancion.query.all()
     cancion = Cancion.query.get(cancion_id)
-    
-    if not cancion:
-        return "Canción no encontrada.", 404
-    
-    return render_template('play.html', cancion = cancion)
+    return render_template('play.html', cancion=cancion, canciones=canciones)
+
+
 
 if __name__ == '__main__':
     with app.app_context():
