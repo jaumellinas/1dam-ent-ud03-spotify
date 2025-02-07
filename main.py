@@ -15,12 +15,12 @@ class Cancion(db.Model):
 
     def __repr__(self):
         return f'<Cancion {self.titulo}>'
-    
+      
 @app.route('/')
 def get_canciones():
     canciones = Cancion.query.all()
     return render_template('canciones.html', canciones = canciones)
-
+  
 @app.route('/canciones/add', methods=['GET', 'POST'])
 def add_cancion():
     if request.method == 'POST':
@@ -29,14 +29,13 @@ def add_cancion():
         duracion = request.form['duracion']
         link = request.form['link']
 
-        # -- Convierte link estándar de YouTube en versión insertable en HTML
         if link.startswith("https://youtu.be"): 
             link = link.replace("https://youtu.be/", "https://www.youtube.com/embed/")
         else: 
             if link.startswith("https://www.youtube.com/watch?v="):
                 link = link.replace("/watch?v=", "/embed/")
         # -------------------------------------------------------------------
-
+        
         new_cancion = Cancion(titulo = titulo, artista = artista, duracion = duracion, link = link)
         db.session.add(new_cancion)
         db.session.commit()
@@ -44,7 +43,7 @@ def add_cancion():
         return f"Canción {titulo} añadida correctamente."
     
     return render_template('add.html', cancion=None)
-
+  
 @app.route('/canciones/get')
 def get_cancion_by_id():
 
@@ -83,8 +82,6 @@ def play_cancion(cancion_id):
     canciones = Cancion.query.all()
     cancion = Cancion.query.get(cancion_id)
     return render_template('play.html', cancion=cancion, canciones=canciones)
-
-
 
 if __name__ == '__main__':
     with app.app_context():
