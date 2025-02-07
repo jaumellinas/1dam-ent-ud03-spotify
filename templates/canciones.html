@@ -24,6 +24,7 @@
     <button><a href="{{url_for('add_cancion')}}">Añadir canción</a></button>
     <a href="{{url_for('get_cancion_by_id')}}"><button>Buscar canción</button></a>
 
+<<<<<<< Updated upstream
     <ul>
         {% for cancion in canciones %}
         <li>
@@ -36,5 +37,30 @@
         </li>
         {% endfor %}
     </ul>
+=======
+        <div class="button-container">
+            <a href="{{ url_for('add_cancion') }}" class="btn">Añadir canción</a>
+            <a href="{{ url_for('get_cancion_by_id') }}" class="btn">Buscar canción</a>
+        </div>
+
+        <ul>
+            {% for cancion in canciones %}
+            <li>
+                <div class="song-info">
+                    <b>{{ cancion.id }}. {{ cancion.titulo }}</b> <br>
+                    {{ cancion.artista }} - <i>{{ cancion.duracion }}</i>
+                </div>
+                <div class="song-actions">
+                    <a href="{{ url_for('play_cancion', cancion_id=cancion.id) }}" class="btn-small">Reproducir</a>
+                    <a href="{{ url_for('edit_cancion', cancion_id=cancion.id) }}" class="btn-small">Editar</a>
+                    <form action="{{ url_for('delete_cancion', cancion_id=cancion.id) }}" method="post">
+                        <button type="submit" class="btn-small">Eliminar</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+>>>>>>> Stashed changes
 </body>
 </html>
