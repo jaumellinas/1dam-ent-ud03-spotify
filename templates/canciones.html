@@ -121,7 +121,8 @@
             {% for cancion in canciones %}
             <li>
                 <div class="song-info">
-                    <b>[{{ cancion.id }}]</b> {{ cancion.titulo }} - {{ cancion.artista }} ({{ cancion.duracion }})
+                    <b>{{ cancion.id }}. {{ cancion.titulo }}</b><br>
+                    {{ cancion.artista }} - <i>{{ cancion.duracion }}</i>
                 </div>
                 <div class="song-actions">
                     <a href="{{ url_for('play_cancion', cancion_id=cancion.id) }}" class="btn-small">Reproducir</a>
