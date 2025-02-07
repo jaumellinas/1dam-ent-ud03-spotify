@@ -37,6 +37,14 @@ def add_cancion():
         duracion = request.form['duracion']
         link = request.form['link']
 
+        # -- Convierte link estándar de YouTube en versión insertable en HTML
+        if link.startswith("https://youtu.be"): 
+            link = link.replace("https://youtu.be/", "https://www.youtube.com/embed/")
+        else: 
+            if link.startswith("https://www.youtube.com/watch?v="):
+                link = link.replace("/watch?v=", "/embed/")
+        # -------------------------------------------------------------------
+
         new_cancion = Cancion(titulo = titulo, artista = artista, duracion = duracion, link = link)
         db.session.add(new_cancion)
         db.session.commit()
