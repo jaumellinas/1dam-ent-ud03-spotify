@@ -5,134 +5,36 @@
     <title>Canciones</title>
     <style>
         * {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            font-family: Arial;
         }
 
-        body {
-            background-color: #121212;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .container {
-            background-color: #181818;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 600px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        h1 {
-            color: #1DB954;
-            margin-bottom: 20px;
-        }
-
-        .button-container {
-            margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .btn {
-            background-color: #1DB954;
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
+        a {
+            color: inherit;
             text-decoration: none;
-            display: inline-block;
-            transition: background 0.3s ease;
         }
 
-        .btn:hover {
-            background-color: #17a447;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            width: 100%;
-        }
-
-        li {
-            background-color: #282828;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .song-info {
-            text-align: left;
-            flex: 1;
-        }
-
-        .song-actions {
-            display: flex;
-            gap: 5px;
-        }
-
-        .btn-small {
-            background-color: #333;
-            color: #fff;
-            padding: 8px;
-            border-radius: 5px;
-            font-size: 14px;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .btn-small:hover {
-            background-color: #444;
-        }
-
-        form {
-            display: inline;
+        a:hover, a:focus, a:active {
+            color: inherit;
+        text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Lista de canciones</h1>
+    <h1>Lista de canciones</h1>
+    <button><a href="{{url_for('add_cancion')}}">Añadir canción</a></button>
+    <a href="{{url_for('get_cancion_by_id')}}"><button>Buscar canción</button></a>
 
-        <div class="button-container">
-            <a href="{{ url_for('add_cancion') }}" class="btn">Añadir canción</a>
-            <a href="{{ url_for('get_cancion_by_id') }}" class="btn">Buscar canción</a>
-        </div>
-
-        <ul>
-            {% for cancion in canciones %}
-            <li>
-                <div class="song-info">
-                    <b>[{{ cancion.id }}]</b> {{ cancion.titulo }} - {{ cancion.artista }} ({{ cancion.duracion }})
-                </div>
-                <div class="song-actions">
-                    <a href="{{ url_for('play_cancion', cancion_id=cancion.id) }}" class="btn-small">Reproducir</a>
-                    <a href="{{ url_for('edit_cancion', cancion_id=cancion.id) }}" class="btn-small">Editar</a>
-                    <form action="{{ url_for('delete_cancion', cancion_id=cancion.id) }}" method="post">
-                        <button type="submit" class="btn-small">Eliminar</button>
-                    </form>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+    <ul>
+        {% for cancion in canciones %}
+        <li>
+            <b>[{{cancion.id}}]</b> {{cancion.titulo}} - {{cancion.artista}} ({{cancion.duracion}})</b>
+            <button><a href="{{url_for('play_cancion', cancion_id=cancion.id)}}">Reproducir</a></button>
+            <button><a href="{{url_for('edit_cancion', cancion_id=cancion.id)}}">Editar</a></button>
+            <form action="{{url_for('delete_cancion', cancion_id=cancion.id)}}" method="post" style="display:inline">
+                <button type="submit">Eliminar</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

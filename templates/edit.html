@@ -1,116 +1,43 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Editar canción</title>
     <style>
         * {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            font-family: Arial;
         }
 
-        body {
-            background-color: #121212;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-
-        .container {
-            background-color: #181818;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        h1 {
-            color: #1DB954;
-            margin-bottom: 20px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        label {
-            text-align: left;
-            font-weight: bold;
-            color: #ccc;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #282828;
-            color: #fff;
-            font-size: 16px;
-        }
-
-        button {
-            background-color: #1DB954;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #17a447;
-        }
-
-        .back-btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #282828;
-            color: #fff;
+        a {
+            color: inherit;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background 0.3s ease;
         }
 
-        .back-btn:hover {
-            background-color: #333;
+        a:hover, a:focus, a:active {
+            color: inherit;
+        text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Editar canción</h1>
+    <h1>Editar canción</h1>
 
-        <form action="{{ url_for('edit_cancion', cancion_id=cancion.id) }}" method="POST">
-            <label for="titulo">Título</label>
-            <input type="text" id="titulo" name="titulo" value="{{ cancion.titulo }}" required>
-
-            <label for="artista">Artista</label>
-            <input type="text" id="artista" name="artista" value="{{ cancion.artista }}" required>
-
-            <label for="duracion">Duración</label>
-            <input type="text" id="duracion" name="duracion" value="{{ cancion.duracion }}" required>
-
-            <label for="link">Enlace de la canción</label>
-            <input type="text" id="link" name="link" value="{{ cancion.link }}" required>
-
-            <button type="submit">Actualizar</button>
-        </form>
-
-        <a href="{{ url_for('get_canciones') }}" class="back-btn">Volver a la lista de canciones</a>
-    </div>
+    <form action="{{ url_for('edit_cancion', cancion_id = cancion.id)}}" , method="POST">
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" name="titulo" value="{{cancion.titulo}}" required>
+        <br><br>
+        <label for="artista">Artista</label>
+        <input type="text" id="artista" name="artista" value="{{cancion.artista}}" required>
+        <br><br>
+        <label for="duracion">Duración</label>
+        <input type="text" id="duracion" name="duracion" value="{{cancion.duracion}}" required>
+        <br><br>
+        <label for="link">Enlace de la canción</label>
+        <input type="text" id="link" name="link" value="{{cancion.link}}" required>
+        <br><br>
+        <button type="submit">Actualizar</button>
+    </form>
+    <br><br>
+    <button><a href="{{url_for('get_canciones')}}">Volver a la lista de canciones</a></button>
 </body>
 </html>
