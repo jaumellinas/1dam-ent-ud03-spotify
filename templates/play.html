@@ -20,14 +20,18 @@
     </style>
 </head>
 <body>
-    <h1>Reproduciendo...</h1>
+    {% if cancion in canciones %}
+        <h1>Reproduciendo...</h1>
 
-    <p><b>Título: </b>{{ cancion.titulo }}</p>
-    <p><b>Artista: </b>{{ cancion.artista }}</p>
-    <p><b>Duración: </b>{{ cancion.duracion }}</p>
+        <p><b>Título: </b>{{ cancion.titulo }}</p>
+        <p><b>Artista: </b>{{ cancion.artista }}</p>
+        <p><b>Duración: </b>{{ cancion.duracion }}</p>
 
-    <iframe width="560" height="315" src="{{ cancion.link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="{{ cancion.link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-    <p> {{myJson}} </p>
+        <p> {{myJson}} </p>
+    {% else %}
+        <h1>La cancion no se ha encontrado :(</h1>
+    {% endif %}
 </body>
 </html>
