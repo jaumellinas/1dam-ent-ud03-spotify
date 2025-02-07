@@ -5,33 +5,81 @@
     <title>Play</title>
     <style>
         * {
-            font-family: Arial;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
+        body {
+            background-color: #121212;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
         }
 
-        a:hover, a:focus, a:active {
-            color: inherit;
+        .container {
+            background-color: #181818;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #1DB954;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 315px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #1DB954;
+            color: #fff;
             text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background-color: #17a447;
         }
     </style>
 </head>
 <body>
-    {% if cancion in canciones %}
-        <h1>Reproduciendo...</h1>
+    <div class="container">
+        {% if cancion in canciones %}
+            <h1>Reproduciendo...</h1>
 
-        <p><b>Título: </b>{{ cancion.titulo }}</p>
-        <p><b>Artista: </b>{{ cancion.artista }}</p>
-        <p><b>Duración: </b>{{ cancion.duracion }}</p>
+            <p><b>Título:</b> {{ cancion.titulo }}</p>
+            <p><b>Artista:</b> {{ cancion.artista }}</p>
+            <p><b>Duración:</b> {{ cancion.duracion }}</p>
 
-        <iframe width="560" height="315" src="{{ cancion.link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe src="{{ cancion.link }}" title="YouTube video player" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-        <p> {{myJson}} </p>
-    {% else %}
-        <h1>La cancion no se ha encontrado :(</h1>
-    {% endif %}
+            <a href="/" class="back-btn">Volver al inicio</a>
+        {% else %}
+            <h1>La canción no se ha encontrado :(</h1>
+            <a href="/" class="back-btn">Volver al inicio</a>
+        {% endif %}
+    </div>
 </body>
 </html>
