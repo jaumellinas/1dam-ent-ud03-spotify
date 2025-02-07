@@ -23,8 +23,8 @@
     <button><a href="{{url_for('get_canciones')}}">Lista de canciones</a></button>
     <h1>Busca la cancion por su id</h1>
     <form action="{{ url_for('play_cancion', cancion_id=0) }}" method="GET">
-            <input type="text" name="cancion_id" placeholder="Escribe" required>
-            <button type="submit">Buscar</button>
+        <input type="text" name="cancion_id" placeholder="Escribe" required>
+        <button type="submit">Buscar</button>
     </form>
 </body>
 </html>
