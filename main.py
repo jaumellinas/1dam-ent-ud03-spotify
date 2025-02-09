@@ -40,7 +40,7 @@ def add_cancion():
         db.session.add(new_cancion)
         db.session.commit()
         
-        return f"Canción {titulo} añadida correctamente."
+        return redirect(url_for('get_canciones'))
     
     return render_template('add.html', cancion=None)
   
@@ -55,7 +55,7 @@ def delete_cancion(cancion_id):
     if cancion:
         db.session.delete(cancion)
         db.session.commit()
-        return jsonify({"mensaje": f"Canción con ID {cancion_id} eliminada correctamente."})
+        return redirect(url_for('get_canciones'))
     else:
         return jsonify({"error": "Canción no encontrada."}), 404
     
