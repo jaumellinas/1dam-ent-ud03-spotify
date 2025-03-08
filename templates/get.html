@@ -2,10 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Buscar Canción</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <title>Buscar canción</title>
     <style>
         * {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -87,7 +90,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Busca la canción por su ID</h1>
+        <h1>Busca canción por ID</h1>
         <form action="{{ url_for('play_cancion', cancion_id=0) }}" method="GET">
             <input type="text" name="cancion_id" placeholder="Ingrese el ID de la canción" required>
             <button type="submit">Buscar</button>

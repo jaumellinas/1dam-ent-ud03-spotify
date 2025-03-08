@@ -2,10 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <title>Canciones</title>
     <style>
         * {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -38,7 +41,7 @@
         .button-container {
             margin-bottom: 20px;
             display: flex;
-            gap: 10px;
+            gap: 15px;
             justify-content: center;
         }
 
@@ -106,6 +109,20 @@
         form {
             display: inline;
         }
+
+        .no-canciones {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-top: 30px;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .no-canciones p {
+            font-weight: bold;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
@@ -117,23 +134,33 @@
             <a href="{{ url_for('get_cancion_by_id') }}" class="btn">Buscar canción</a>
         </div>
 
-        <ul>
-            {% for cancion in canciones %}
-            <li>
-                <div class="song-info">
-                    <b>{{ cancion.id }}. {{ cancion.titulo }}</b><br>
-                    {{ cancion.artista }} - <i>{{ cancion.duracion }}</i>
-                </div>
-                <div class="song-actions">
-                    <a href="{{ url_for('play_cancion', cancion_id=cancion.id) }}" class="btn-small">Reproducir</a>
-                    <a href="{{ url_for('edit_cancion', cancion_id=cancion.id) }}" class="btn-small">Editar</a>
-                    <form action="{{ url_for('delete_cancion', cancion_id=cancion.id) }}" method="post">
-                        <button type="submit" class="btn-small">Eliminar</button>
-                    </form>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
+        {% if not canciones %}
+            <div class="no-canciones">
+                <p>Aún no hay canciones en la base de datos.</p>
+
+                <i>¿Necesitas un ejemplo?</i>
+                <p>The Adults Are Talking - The Strokes <br>
+                    4:47 - https://youtu.be/ewOPQZZn4SY</p>
+            </div>
+        {% else %}
+            <ul>
+                {% for cancion in canciones %}
+                <li>
+                    <div class="song-info">
+                        <b>{{ cancion.id }}. {{ cancion.titulo }}</b><br>
+                        {{ cancion.artista }} - <i>{{ cancion.duracion }}</i>
+                    </div>
+                    <div class="song-actions">
+                        <a href="{{ url_for('play_cancion', cancion_id=cancion.id) }}" class="btn-small">Reproducir</a>
+                        <a href="{{ url_for('edit_cancion', cancion_id=cancion.id) }}" class="btn-small">Editar</a>
+                        <form action="{{ url_for('delete_cancion', cancion_id=cancion.id) }}" method="post">
+                            <button type="submit" class="btn-small">Eliminar</button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </div>
 </body>
 </html>
