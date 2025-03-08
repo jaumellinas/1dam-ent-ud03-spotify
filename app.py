@@ -1,9 +1,12 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/canciones.db"
+DATABASE_PATH = "/tmp/canciones.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{DATABASE_PATH}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 class Cancion(db.Model):
@@ -15,6 +18,15 @@ class Cancion(db.Model):
 
     def __repr__(self):
         return f'<Cancion {self.titulo}>'
+
+# Función para inicializar la base de datos si no existe
+def init_db():
+    if not os.path.exists(DATABASE_PATH):
+        with app.app_context():
+            db.create_all()
+
+# Inicializa la base de datos al arrancar
+init_db()
       
 @app.route('/')
 def get_canciones():
@@ -84,6 +96,4 @@ def play_cancion(cancion_id):
     return render_template('play.html', cancion=cancion, canciones=canciones)
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
