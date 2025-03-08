@@ -2,6 +2,13 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import os
 
+"""
+# Configuración en caso de ejecutarse en local
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///canciones.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
+"""
 app = Flask(__name__)
 DATABASE_PATH = "/tmp/canciones.db"
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{DATABASE_PATH}"
@@ -19,13 +26,13 @@ class Cancion(db.Model):
     def __repr__(self):
         return f'<Cancion {self.titulo}>'
 
-# Función para inicializar la base de datos si no existe
+# Función para inicializar la base de datos si no existe (Borrar en caso de local)
 def init_db():
     if not os.path.exists(DATABASE_PATH):
         with app.app_context():
             db.create_all()
 
-# Inicializa la base de datos al arrancar
+# Inicializa la base de datos al arrancar (Borrar en caso de local)
 init_db()
       
 @app.route('/')
@@ -94,6 +101,14 @@ def play_cancion(cancion_id):
     canciones = Cancion.query.all()
     cancion = Cancion.query.get(cancion_id)
     return render_template('play.html', cancion=cancion, canciones=canciones)
+
+"""
+# Configuración en caso de ejecutarse en local
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)
+"""
 
 if __name__ == '__main__':
     app.run(debug=True)
